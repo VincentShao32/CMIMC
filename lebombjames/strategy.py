@@ -49,15 +49,7 @@ def createList():
 
 def addPlacement():
     global currBoard
-    lowest = []
-
-    #implement the array avoid
-    for i in range(len(lst)):
-
-
-    tup = lowest[random.randint(0, len(lowest) - 1)]
-
-    # print(tup)
+    tup = lst[1]
     res.append((tup[1], tup[2]))
     totalBoard[tup[1]][tup[2]] += 1
 
@@ -69,6 +61,7 @@ def updateTotalBoard():
     global totalBoard
     totalBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     for i in range(len(currBoard)):
+
         for j in range(len(currBoard[i])):
             for pi in currBoard[i][j]:
                 totalBoard[i][j] += pi
@@ -141,6 +134,6 @@ def get_strategies():
     In the official grader, only the first element of the list will be used as your strategy. 
     """
     strategies = [greedy, random_strategy,
-                  random_strategy, random_strategy, random_strategy]
+                  random_strategy, random_strategy, strategy]
 
     return strategies

@@ -5,8 +5,8 @@ lst = []
 grid = []
 res = []
 
+
 def greedy(pid, Board):
-    print(Board)
     global currBoard
     global grid
     currBoard = Board
@@ -35,6 +35,7 @@ def createList():
 
     lst = sorted(lst)
 
+
 def addPlacement():
     global currBoard
     tup = lst[0]
@@ -45,6 +46,7 @@ def addPlacement():
     updateCentres()
     createList()
 
+
 def updateTotalBoard():
     global totalBoard
     totalBoard = [[0] * 10 for i in range(10)]
@@ -53,12 +55,14 @@ def updateTotalBoard():
             for pi in currBoard[i][j]:
                 totalBoard[i][j] += pi
 
+
 def updateCentres():
     global centres
     centres = [[0] * 10 for i in range(10)]
     for i in range(len(centres)):
         for j in range(len(centres[i])):
             centres[i][j] = calcCentres(i, j)
+
 
 def calcCentres(x, y):
     total = 0
