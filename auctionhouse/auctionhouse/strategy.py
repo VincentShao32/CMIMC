@@ -2,6 +2,10 @@
 Edit this file! This is the file you will submit.
 """
 import random
+from vincent import vincent
+from lose import loseOpp
+from loseUs import loseUs
+from fiftyFifty import fiftyFifty
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -25,6 +29,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = [gambler, villain]
+    strategies = [gambler, villain, loseOpp, vincent, loseUs, fiftyFifty]
 
     return strategies
