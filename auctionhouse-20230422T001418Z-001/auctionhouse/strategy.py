@@ -5,6 +5,9 @@ import random
 
 # Implement me!
 # 2 example strategies to use in your tournament.
+
+
+
 def gambler(wallet, history):
     return random.randint(0, wallet)
 
