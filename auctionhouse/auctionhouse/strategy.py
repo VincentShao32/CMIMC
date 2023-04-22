@@ -7,7 +7,9 @@ from lose import loseOpp
 from advay import advay2
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
-from predatorCounter import predatorCounter
+from smart import smart
+from advay import advay
+from yanda import yanda
 
 # Implement me!
 # 2 example strategies to use in your tournament.
