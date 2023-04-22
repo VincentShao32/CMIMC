@@ -17,6 +17,7 @@ def advay2(wallet, history):
     total = 100
 
     for amount, value in history:
+        if total == 0: break
         sumPercs = value / total
         total -= amount
 

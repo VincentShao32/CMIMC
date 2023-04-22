@@ -7,8 +7,9 @@ from lose import loseOpp
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
 from smart import smart
-from advay import advay
-from yanda import yanda
+from advay import advay2
+from predatorCounter import predatorCounter
+from average import average
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -32,6 +33,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([vincent, loseUs, loseOpp, fiftyFifty] + [predatorCounter])
+    strategies = ([vincent, loseUs, loseOpp, fiftyFifty, advay2, smart, average])
 
     return strategies
