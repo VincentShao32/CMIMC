@@ -1,5 +1,8 @@
 def f(x):
-    return 0.1 * x
+    return 2 * x + 2
+
 
 def linear(wallet, history):
-    return int(min(wallet, f(len(history)) * wallet))
+    if f(len(history)) > wallet * 0.9:
+        return 0
+    return int(f(len(history)))
