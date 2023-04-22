@@ -28,7 +28,9 @@ def advay2(wallet, history):
     return 0 if valid_amount >= wallet else valid_amount + 1
 
 def ElDesafio(wallet, history):
-    if history[-1] == 0 and len(history) < 5:
+    if len(history) == 0:
+        return 0
+    if history[-1] == 0 and len(history) < 4:
         return 1
 
     sum_of_wallet = sum(list(map(lambda x: x[0], history)))
