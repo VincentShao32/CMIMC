@@ -3,7 +3,7 @@ Usage:
     python3 visualizer.py
     python3 visualizer.py FILENAME.game
 
-NOTE: You must run a game first and save it's results (see main.py) to generate 
+NOTE: You must run a game first and save its results (see main.py) to generate
 the history file ("history.game"), which is then read and visualized by this file. 
 You can also visualize an online game by downloading the save file, 
 put it in the same folder as the visualizer, and run 

@@ -10,25 +10,30 @@ from smart import smart
 from advay import *
 from predatorCounter import predatorCounter
 from average import average
+from megamathCounter import randomShit
 
 # Implement me!
 # 2 example strategies to use in your tournament.
 
 from statistics import mean, stdev
 
+
 def f(x):
     return -12 * x + 100
     # return 100 * 0.65 ** x
 
+
 def standardDev(points):
-    if len(points) == 1: return points[0]
+    if len(points) == 1:
+        return points[0]
     return stdev(points)
 
+
 def megamath(wallet, history):
-    
+
     if len(history) == 0:
         return 1
-    
+
     subtract = 0
     points1 = [history[0][0] / 100]
     subtract += history[0][0]
@@ -45,8 +50,9 @@ def megamath(wallet, history):
             continue
         points2.append(j[0] / f(i - 1))
     selfFactor = mean(j for j in points2)
-    useFactor = selfFactor if standardDev(points2) < standardDev(points1) else oppFactor
-    
+    useFactor = selfFactor if standardDev(
+        points2) < standardDev(points1) else oppFactor
+
     #useFactor = oppFactor
     if useFactor == selfFactor:
         return int(wallet * (useFactor + 0.125))
@@ -54,6 +60,7 @@ def megamath(wallet, history):
     if (oppSum * (useFactor + 0.125) > wallet):
         return 0
     return int(oppSum * (useFactor + 0.125))
+
 
 def gambler(wallet, history):
     return random.randint(0, wallet)
@@ -75,7 +82,8 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([megamath])
+    strategies = ([megamath, smart, loseUs, loseOpp, advay,
+                  advay2, ElDesafio, ElDesafisimo, fiftyFifty, randomShit, predatorCounter])
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
     return strategies

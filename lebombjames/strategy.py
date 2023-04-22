@@ -12,7 +12,6 @@ res = []
 
 
 def greedy(pid, Board):
-    print(Board)
     global currBoard
     global grid
     currBoard = Board
@@ -34,8 +33,8 @@ def createList():
     global lst
     lst = []
 
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
+    for i in range(1, len(grid)):
+        for j in range(1, len(grid[i])):
             grid[i][j] = calcCrossVal(i, j)
             lst.append((grid[i][j], i, j))
 
@@ -44,8 +43,7 @@ def createList():
 
 def addPlacement():
     global currBoard
-    tup = lst[0]
-    print(tup)
+    tup = lst[2]
     res.append((tup[1], tup[2]))
     totalBoard[tup[1]][tup[2]] += 1
 
@@ -57,6 +55,7 @@ def updateTotalBoard():
     global totalBoard
     totalBoard = [[0] * 10 for i in range(10)]
     for i in range(len(currBoard)):
+
         for j in range(len(currBoard[i])):
             for pi in currBoard[i][j]:
                 totalBoard[i][j] += pi
@@ -64,7 +63,7 @@ def updateTotalBoard():
 
 def updateCentres():
     global centres
-    centres = [[0] * 10 for i in range(10)]
+    centres = [[0] * 10 for _ in range(10)]
     for i in range(len(centres)):
         for j in range(len(centres[i])):
             centres[i][j] = calcCentres(i, j)
@@ -129,6 +128,6 @@ def get_strategies():
     In the official grader, only the first element of the list will be used as your strategy. 
     """
     strategies = [greedy, random_strategy,
-                  random_strategy, random_strategy, random_strategy]
+                  random_strategy, random_strategy, strategy]
 
     return strategies
