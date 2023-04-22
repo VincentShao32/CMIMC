@@ -2,9 +2,8 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from vincent import vincent
 from lose import loseOpp
-from advay import advay2
+from advay import *
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
 from smart import smart
@@ -17,14 +16,16 @@ from megamath import megamath
 # 2 example strategies to use in your tournament.
 
 
-
 def gambler(wallet, history):
     return random.randint(0, wallet)
+
 
 def villain(wallet, history):
     return max(wallet - 1, 0)
 
 # Edit me!
+
+
 def get_strategies():
     """
     Returns a list of strategy functions to use in a tournament.
