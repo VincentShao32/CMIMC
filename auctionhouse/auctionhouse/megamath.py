@@ -23,7 +23,7 @@ def megamath(wallet, history):
         subtract += i[0]
     oppFactor = mean(j for j in points1)
     oppSum = (100 - sum(i[0] for i in history))
-    points2 = [history[0][0]]
+    points2 = [history[0][0] / 100]
     for i, j in enumerate(history[1:]):
         if j[0] < 3:
             continue
@@ -35,7 +35,7 @@ def megamath(wallet, history):
     if useFactor == selfFactor:
         return int(wallet * (useFactor + 0.125))
 
-    if (oppSum * (useFactor + 0.125) > wallet):
+    if (oppSum * (useFactor + 0.125) > wallet * 0.7):
         return 0
     return int(oppSum * (useFactor + 0.125))
 
