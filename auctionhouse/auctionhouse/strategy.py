@@ -2,14 +2,6 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from lose import loseOpp
-from advay import *
-from loseUs import loseUs
-from fiftyFifty import fiftyFifty
-from smart import smart
-from advay import *
-from predatorCounter import predatorCounter
-from average import average
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -54,6 +46,18 @@ def megamath(wallet, history):
     if (oppSum * (useFactor + 0.125) > wallet):
         return 0
     return int(oppSum * (useFactor + 0.125))
+
+# def ElDesafisimo(wallet, history):
+#     if len(history) == 0:
+#         return 0
+
+#     if history[-1] == 0 and len(history) < 5:
+#         return 1
+
+#     sum_of_wallet = sum(list(map(lambda x: x[0], history)))
+#     valid_amount = sum_of_wallet * logistic_function(len(history))
+
+#     return 1 if valid_amount > wallet else valid_amount + 1
 
 def gambler(wallet, history):
     return random.randint(0, wallet)
