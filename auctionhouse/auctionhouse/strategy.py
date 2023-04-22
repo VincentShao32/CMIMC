@@ -4,8 +4,10 @@ Edit this file! This is the file you will submit.
 import random
 from vincent import vincent
 from lose import loseOpp
+from advay import advay2
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
+from smart import smart
 from advay import advay
 from yanda import yanda
 
@@ -31,6 +33,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([gambler, villain, loseOpp, vincent, loseUs, fiftyFifty, advay, yanda] * 50)
+    strategies = ([smart, loseUs, loseOpp, fiftyFifty, advay2, predatorCounter] * 10)
 
     return strategies
