@@ -2,6 +2,7 @@
 Edit this file! This is the file you will submit.
 """
 import random
+from yanda import yanda
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -10,6 +11,8 @@ def gambler(wallet, history):
 
 def villain(wallet, history):
     return max(wallet - 1, 0)
+
+
 
 # Edit me!
 def get_strategies():
@@ -22,6 +25,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = [gambler, villain]
+    strategies = [gambler, villain, yanda]
 
     return strategies
