@@ -7,19 +7,25 @@ from advay import *
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
 from smart import smart
+from advay import *
+from predatorCounter import predatorCounter
+from average import average
+from megamath import megamath
 
 # Implement me!
 # 2 example strategies to use in your tournament.
 
 
-
 def gambler(wallet, history):
     return random.randint(0, wallet)
+
 
 def villain(wallet, history):
     return max(wallet - 1, 0)
 
 # Edit me!
+
+
 def get_strategies():
     """
     Returns a list of strategy functions to use in a tournament.
@@ -30,6 +36,8 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([ElDesafio, ElDesafisimo, advay, loseOpp, loseUs, smart, fiftyFifty])
-
+    strategies = ([vincent, loseUs, loseOpp, fiftyFifty, advay2,
+                  smart, average, ElDesafio, ElDesafisimo, megamath])
+    # strategies = ([gambler] + [megamath])
+    # strategies = ([megamath, fiftyFifty])
     return strategies
