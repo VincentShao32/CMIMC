@@ -10,7 +10,7 @@ from smart import smart
 from advay import *
 from predatorCounter import predatorCounter
 from average import average
-from megamath import megamath
+from megamath import megamath, megamathv2
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -36,7 +36,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([loseUs, loseOpp, fiftyFifty, advay2, smart, average, ElDesafio, ElDesafisimo, megamath] )
+    strategies = ([ megamath, smart, ElDesafisimo, ElDesafio, loseOpp, loseUs] )
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
     return strategies
