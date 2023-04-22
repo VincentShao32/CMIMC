@@ -9,5 +9,5 @@ def average(wallet, history):
     oppBase = calcPercent(history[-1][0], len(history))
     if oppBase < 0.1:
         return 1
-    return min(wallet, oppSum * (oppBase + 0.1))
+    return int(min(wallet, oppSum * (oppBase + 0.2)))
 

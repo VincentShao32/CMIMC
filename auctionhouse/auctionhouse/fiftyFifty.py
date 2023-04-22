@@ -1,2 +1,2 @@
 def fiftyFifty(wallet, history):
-    return wallet * 0.5
+    return int(wallet * 0.5)
