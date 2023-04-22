@@ -10,7 +10,7 @@ def vincent(wallet, history):
     for i in history:
         if not i[0]: losses += 1
     amount = roundNum(opponentWallet * 0.35)
-    return amount + roundNum(lossFactor * losses) * amount + roundNum(roundsFactor * len(history) * amount)
+    return min(wallet, amount - roundNum(lossFactor * losses) * amount + roundNum(roundsFactor * len(history) * amount))
 
 def roundNum(num):
     return round(num * 100) / 100
