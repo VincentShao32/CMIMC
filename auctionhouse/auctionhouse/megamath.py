@@ -1,24 +1,36 @@
-from statistics import mean
+from statistics import mean, stdev
 
 def calcSlope(y2, y1):
     return (y2 - y1)
+
+def f(x):
+    return 100 * 0.6 ** x
+
+def standardDev(points):
+    if len(points) == 1: return points[0]
+    return stdev(points)
 
 def megamath(wallet, history):
     if len(history) == 0:
         return 1
     
     subtract = 0
-    points = [history[0][0] / 100]
+    points1 = [history[0][0] / 100]
     subtract += history[0][0]
     for i in history[1:]:
-        points.append(i[0] / (100 - subtract + 0.05))
+        points1.append(i[0] / (100 - subtract + 0.05))
         subtract += i[0]
-    # points += [history[i][0] // (100 - subtract) for i, j in enumerate(history[1:])]
-    # slope = mean(calcSlope(j, points[i - 1]) for i, j in enumerate(points[-3:]))
-    factor = mean(j for j in points)
+    oppFactor = mean(j for j in points1)
     oppSum = (100 - sum(i[0] for i in history))
 
-    if (oppSum * factor + 2 > wallet):
+    points2 = [history[0][0]]
+    for i, j in enumerate(history[1:]):
+        points2.append(j[0] / f(i - 1))
+    selfFactor = mean(j for j in points2)
+
+    useFactor = selfFactor if standardDev(points2) < standardDev(points1) else oppFactor
+
+    if (oppSum * useFactor + 2 > wallet):
         return 0
-    return int(oppSum * (factor + 0.1))
+    return int(oppSum * (useFactor + 0.1))
     

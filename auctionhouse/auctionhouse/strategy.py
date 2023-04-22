@@ -35,7 +35,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([vincent, loseUs, loseOpp, fiftyFifty, advay2, smart, average, ElDesafio, ElDesafisimo, megamath])
+    strategies = ([vincent, loseUs, loseOpp, fiftyFifty, advay2, smart, average, ElDesafio, ElDesafisimo, megamath] )
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
     return strategies
