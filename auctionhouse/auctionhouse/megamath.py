@@ -7,7 +7,8 @@ def f(x):
 
 
 def standardDev(points):
-    if len(points) == 1: return points[0]
+    if len(points) == 1:
+        return points[0]
     return stdev(points)
 
 
@@ -31,7 +32,8 @@ def megamath(wallet, history):
             continue
         points2.append(j[0] / f(i - 1))
     selfFactor = mean(j for j in points2)
-    useFactor = selfFactor if standardDev(points2) < standardDev(points1) else oppFactor
+    useFactor = selfFactor if standardDev(
+        points2) < standardDev(points1) else oppFactor
 
     # useFactor = oppFactor
     if useFactor == selfFactor:
@@ -71,8 +73,8 @@ def megamathv2(wallet, history):
     if len(points1) == 1:
         slope = 0
     else:
-        slope = mean(calcSlope(j, points1[i - 1]) for i, j in enumerate(points1[1:]))
-    print(slope)
+        slope = mean(calcSlope(j, points1[i - 1])
+                     for i, j in enumerate(points1[1:]))
 
     oppFactor = mean(j for j in points1) + slope
     oppSum = (100 - sum(i[0] for i in history))
@@ -83,7 +85,8 @@ def megamathv2(wallet, history):
     slope = mean(calcSlope(j, points2[i - 1]) for i, j in enumerate(points2))
     selfFactor = mean(j for j in points2) + slope
 
-    useFactor = selfFactor if standardDev(points2) < standardDev(points1) else oppFactor
+    useFactor = selfFactor if standardDev(
+        points2) < standardDev(points1) else oppFactor
 
     if (oppSum * useFactor + 2 > wallet):
         return 0

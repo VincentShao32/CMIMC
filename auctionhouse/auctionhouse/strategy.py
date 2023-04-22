@@ -2,13 +2,14 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from megamind import megamind
+from megamath import megamath
 from advay import *
 from fiftyFifty import fiftyFifty
 from lose import loseOpp
 from loseUs import loseUs
 from smart import smart
 from linear import linear
+from megamathCounter import randomShit
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -51,7 +52,6 @@ def megamath(wallet, history):
         if j[0] < 1:
             continue
         points2.append(roundNum(j[0] / f(i - 1)))
-    print(points2)
     selfFactor = mean(j for j in points2)
     useFactor = selfFactor if standardDev(
         points2) < standardDev(points1) else oppFactor
@@ -97,8 +97,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([megamath, ElDesafisimo, ElDesafio, loseOpp, loseUs, fiftyFifty, smart, loseUs, loseOpp, advay,
-                  advay2, ElDesafio, ElDesafisimo, fiftyFifty, randomShit, predatorCounter])
+    strategies = ([megamath] * 2)
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
     return strategies

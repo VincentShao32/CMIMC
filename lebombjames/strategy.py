@@ -33,8 +33,8 @@ def createList():
     global lst
     lst = []
 
-    for i in range(1, len(grid)):
-        for j in range(1, len(grid[i])):
+    for i in range(len(grid)):
+        for j in range(len(grid[i])):
             grid[i][j] = calcCrossVal(i, j)
             lst.append((grid[i][j], i, j))
 
@@ -43,7 +43,7 @@ def createList():
 
 def addPlacement():
     global currBoard
-    tup = lst[2]
+    tup = lst[1]
     res.append((tup[1], tup[2]))
     totalBoard[tup[1]][tup[2]] += 1
 
