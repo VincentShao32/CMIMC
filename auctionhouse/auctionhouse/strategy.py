@@ -4,6 +4,7 @@ Edit this file! This is the file you will submit.
 import random
 from vincent import vincent
 from lose import loseOpp
+from advay import advay2
 from loseUs import loseUs
 from fiftyFifty import fiftyFifty
 from smart import smart
