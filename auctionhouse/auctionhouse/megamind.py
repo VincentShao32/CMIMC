@@ -64,15 +64,23 @@ def megamind(wallet, history):
         print(selfBets)
         print(selfm)
         print(selfb)
+        for i in history:
+            print(i[0])
         selfNext = f(selfm, selfb, len(selfBets))
     else:
         selfNext = 0.2
 
     oppSum = (100 - sum(i[0] for i in history))
     if selfNext == oppNext:
-        return min(wallet, oppSum * selfNext)
+        if wallet * selfNext > wallet * 0.6:
+            return 1
+        return int(oppSum * selfNext)
     use = oppNext if RMSE(oppm, oppb, oppBets) < RMSE( selfm, selfb, selfBets) else selfNext
     
-    
+    print(use)
+    print(oppNext)
 
-    return min(wallet, oppSum * use)
+    if (use == selfNext and wallet * use > wallet * 0.6) or (use == oppNext and oppSum * use > wallet * 0.6):
+        return 1
+    
+    return int(wallet * use) if use==selfNext else int(oppSum * use)

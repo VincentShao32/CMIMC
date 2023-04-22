@@ -58,7 +58,6 @@ def ElDesafisimo(wallet, history):
         return 1
 
     sum_of_wallet = sum(list(map(lambda x: x[0], history)))
-    valid_amount = sum_of_wallet * logistic_function(len(history))
+    valid_amount = int(sum_of_wallet * logistic_function(len(history)))
 
-    
     return 1 if valid_amount > wallet else valid_amount + 1

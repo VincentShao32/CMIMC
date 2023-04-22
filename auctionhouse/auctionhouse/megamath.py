@@ -1,4 +1,4 @@
-from statistics import mean, stdev
+from statistics import mean, stdev, median
 
 def f(x):
     return -12 * x + 100
@@ -21,14 +21,14 @@ def megamath(wallet, history):
             continue
         points1.append(i[0] / (100 - subtract + 0.05))
         subtract += i[0]
-    oppFactor = mean(j for j in points1)
+    oppFactor = median(j for j in points1)
     oppSum = (100 - sum(i[0] for i in history))
     points2 = [history[0][0] / 100]
     for i, j in enumerate(history[1:]):
         if j[0] < 3:
             continue
         points2.append(j[0] / f(i - 1))
-    selfFactor = mean(j for j in points2)
+    selfFactor = median(j for j in points2)
     useFactor = selfFactor if standardDev(points2) < standardDev(points1) else oppFactor
     
     #useFactor = oppFactor
