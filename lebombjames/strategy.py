@@ -10,6 +10,7 @@ lst = []
 grid = []
 res = []
 
+
 def greedy(pid, Board):
     print(Board)
     global currBoard
@@ -40,6 +41,7 @@ def createList():
 
     lst = sorted(lst)
 
+
 def addPlacement():
     global currBoard
     tup = lst[0]
@@ -50,6 +52,7 @@ def addPlacement():
     updateCentres()
     createList()
 
+
 def updateTotalBoard():
     global totalBoard
     totalBoard = [[0] * 10 for i in range(10)]
@@ -58,12 +61,14 @@ def updateTotalBoard():
             for pi in currBoard[i][j]:
                 totalBoard[i][j] += pi
 
+
 def updateCentres():
     global centres
     centres = [[0] * 10 for i in range(10)]
     for i in range(len(centres)):
         for j in range(len(centres[i])):
             centres[i][j] = calcCentres(i, j)
+
 
 def calcCentres(x, y):
     total = 0
@@ -81,6 +86,7 @@ def calcCentres(x, y):
 
     return total
 
+
 def calcCrossVal(x, y):
     total = 0
     total = centres[x][y]
@@ -95,18 +101,24 @@ def calcCrossVal(x, y):
     return total
 
 # Implement me!
+
+
 def strategy(pid, board):
     return [(0, 0), (0, 0), (0, 0)]
 
 # A random strategy to use in your game.
+
+
 def random_strategy(pid, board):
     return [
-        (random.randint(0, 9), random.randint(0, 9)), 
-        (random.randint(0, 9), random.randint(0, 9)), 
-        (random.randint(0, 9), random.randint(0, 9)), 
-        ]
+        (random.randint(0, 9), random.randint(0, 9)),
+        (random.randint(0, 9), random.randint(0, 9)),
+        (random.randint(0, 9), random.randint(0, 9)),
+    ]
 
 # Edit me!
+
+
 def get_strategies():
     """
     Returns a list of strategy functions to use in a game.
@@ -116,6 +128,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = [greedy, random_strategy, random_strategy, random_strategy, random_strategy]
+    strategies = [greedy, random_strategy,
+                  random_strategy, random_strategy, random_strategy]
 
     return strategies
