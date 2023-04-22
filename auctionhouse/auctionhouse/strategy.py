@@ -2,7 +2,7 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from megamind import megamind
+from megamath import megamath
 from advay import *
 from fiftyFifty import fiftyFifty
 from lose import loseOpp
@@ -11,6 +11,7 @@ from smart import smart
 from linear import linear
 from constant import constant
 from variation import variation
+from megamathCounter import randomShit
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -23,6 +24,8 @@ def f(x):
 
 
 def standardDev(points):
+    if len(points) == 1:
+        return points[0]
     if len(points) == 1:
         return points[0]
     return stdev(points)
