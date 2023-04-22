@@ -88,15 +88,15 @@ def calcCentres(x, y):
 
 def calcCrossVal(x, y):
     total = 0
-    total += centres[x][y]
+    total = centres[x][y]
     if x < 9:
-        total += centres[x + 1][y]
+        total = max(total, centres[x + 1][y])
     if y < 9:
-        total += centres[x][y + 1]
+        total = max(total, centres[x][y + 1])
     if x > 0:
-        total += centres[x - 1][y]
+        total = max(total, centres[x - 1][y])
     if y > 0:
-        total += centres[x][y - 1]
+        total = max(total, centres[x][y - 1])
     return total
 
 # Implement me!

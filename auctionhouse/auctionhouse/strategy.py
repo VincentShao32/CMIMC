@@ -2,15 +2,13 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from lose import loseOpp
+from megamind import megamind
 from advay import *
-from loseUs import loseUs
 from fiftyFifty import fiftyFifty
+from lose import loseOpp
+from loseUs import loseUs
 from smart import smart
-from advay import *
-from predatorCounter import predatorCounter
-from average import average
-from megamathCounter import randomShit
+from linear import linear
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -29,26 +27,31 @@ def standardDev(points):
     return stdev(points)
 
 
+def roundNum(num):
+    return round(num * 100) / 100
+
+
 def megamath(wallet, history):
 
     if len(history) == 0:
         return 1
 
-    subtract = 0
-    points1 = [history[0][0] / 100]
-    subtract += history[0][0]
+    total = 100
+    points1 = [history[0][0] / total]
+    total -= history[0][0]
     for i in history[1:]:
-        if i[0] < 3:
+        if i[0] < 1:
             continue
-        points1.append(i[0] / (100 - subtract + 0.05))
-        subtract += i[0]
+        points1.append(roundNum(i[0] / total))
+        total -= i[0]
     oppFactor = mean(j for j in points1)
     oppSum = (100 - sum(i[0] for i in history))
-    points2 = [history[0][0]]
+    points2 = [history[0][0] / 100]
     for i, j in enumerate(history[1:]):
-        if j[0] < 3:
+        if j[0] < 1:
             continue
-        points2.append(j[0] / f(i - 1))
+        points2.append(roundNum(j[0] / f(i - 1)))
+    print(points2)
     selfFactor = mean(j for j in points2)
     useFactor = selfFactor if standardDev(
         points2) < standardDev(points1) else oppFactor
@@ -57,9 +60,21 @@ def megamath(wallet, history):
     if useFactor == selfFactor:
         return int(wallet * (useFactor + 0.125))
 
-    if (oppSum * (useFactor + 0.125) > wallet):
+    if (oppSum * (useFactor + 0.125) > wallet * 0.7):
         return 0
     return int(oppSum * (useFactor + 0.125))
+
+# def ElDesafisimo(wallet, history):
+#     if len(history) == 0:
+#         return 0
+
+#     if history[-1] == 0 and len(history) < 5:
+#         return 1
+
+#     sum_of_wallet = sum(list(map(lambda x: x[0], history)))
+#     valid_amount = sum_of_wallet * logistic_function(len(history))
+
+#     return 1 if valid_amount > wallet else valid_amount + 1
 
 
 def gambler(wallet, history):
@@ -82,7 +97,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([megamath, smart, loseUs, loseOpp, advay,
+    strategies = ([megamath, ElDesafisimo, ElDesafio, loseOpp, loseUs, fiftyFifty, smart, loseUs, loseOpp, advay,
                   advay2, ElDesafio, ElDesafisimo, fiftyFifty, randomShit, predatorCounter])
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
