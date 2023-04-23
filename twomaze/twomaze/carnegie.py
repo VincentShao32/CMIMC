@@ -18,7 +18,13 @@ def carnegie_1(x, y, walls_horizontal, clock_times):
         if (walls_horizontal[VIEW_SIZE][VIEW_SIZE + steps + 1] == 1):
             break
         steps = steps + 1
-
+    if steps == 0:
+        while (y + steps >= 0 and steps < 7):
+            if walls_horizontal[VIEW_SIZE][VIEW_SIZE + steps - 1] == 1:
+                break
+            steps -= 1
+    print(steps)
+    print(clock_times)
     return (steps, 5)
 
 # The function called for maze pattern 2
