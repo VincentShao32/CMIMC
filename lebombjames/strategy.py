@@ -34,6 +34,7 @@ def greedy(pid, Board):
     return res
 
 def findCrater():
+    pass
 
 
 def createList():

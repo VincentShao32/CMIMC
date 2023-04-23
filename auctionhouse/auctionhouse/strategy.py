@@ -17,7 +17,7 @@ from constant import constant
 from variation import variation
 from megamathCounter import randomShit
 from megamind import megamind
-from lastPlusOne import lastPlusOne
+from lastPlusOne import lastPlusOne, lastPlusOneVaried
 
 # Implement me!
 # 2 example strategies to use in your tournament.
@@ -219,7 +219,7 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([lastPlusOne] + [linear] * 10)
+    strategies = ([lastPlusOne, lastPlusOneVaried] + [linear] * 10)
     # strategies = ([gambler] + [megamath])
     # strategies = ([megamath, fiftyFifty])
     return strategies
