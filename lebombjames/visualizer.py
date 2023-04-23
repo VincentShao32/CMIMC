@@ -52,6 +52,7 @@ import game2dboard
 import copy
 from pathlib import Path
 import sys
+from strategy import greedy
 
 exceptions = {1:"You program fail to produce a valid move!\nYour move in the current turn is random.", 0:""}
 
@@ -103,7 +104,7 @@ for step in range(turns):
 # Move
 def on_key_press(keysym):
     global turn
-    global player
+    global player, pid
     if keysym == 'Right':
         turn = min(turns - 1, turn + 1)
     if keysym == 'Left':
@@ -138,6 +139,9 @@ def on_key_press(keysym):
     scorestrcolor = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] +  "\n" + "".join([("\033[91m" if i == pid else "") + f"                Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") +("\033[0m" if i == pid else "") + "\n" for i in range(PLAYERS)])
 
     scorestr = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] + "\n" +  "".join([("\u0332" if i == pid else "").join(f"               Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") + "\n") for i in range(PLAYERS)])
+    print("-"*100)
+    print(greedy(pid, board))
+    print("-"*100)
     print(scorestrcolor)
     bd.print(scorestr)
     
