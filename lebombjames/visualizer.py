@@ -46,7 +46,7 @@ Recall that if your program exceeds the query time, total time, or memory limit,
 output, your settlements will be placed down randomly. Whenever that happens, the visualizer will display
 a text message to indicate that your program did not operate normally in a given turn.
 """
-
+# import matplotlib
 from grid import Grid
 import game2dboard
 import copy
@@ -60,7 +60,7 @@ if len(sys.argv) > 1:
     inFile = sys.argv[1]
     print(inFile)
 else:
-    inFile = "history.game"
+    inFile = "00d86dab-00f7-47a8-84d6-7d069ad9b42e.pkl"
 
 
 
@@ -136,6 +136,8 @@ def on_key_press(keysym):
     for b in bombs[turn]:
         for pos in grid._bomb_coords(b[0], b[1]):
             bd[pos[0]][pos[1]] += "B"
+
+    
     scorestrcolor = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] +  "\n" + "".join([("\033[91m" if i == pid else "") + f"                Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") +("\033[0m" if i == pid else "") + "\n" for i in range(PLAYERS)])
 
     scorestr = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] + "\n" +  "".join([("\u0332" if i == pid else "").join(f"               Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") + "\n") for i in range(PLAYERS)])
@@ -161,7 +163,7 @@ bd = game2dboard.Board(SIZE, SIZE)
 bd.title = "Lebomb Visualizer"
 bd.grid_color = "DarkSlateBlue"
 bd.cell_color = "LightCyan"
-bd.cell_size = 45
+bd.cell_size = 0
     
 # Visualize
 turn = 0
