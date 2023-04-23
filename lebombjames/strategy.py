@@ -6,6 +6,7 @@ from pastBomb import seperation
 
 totalBoard = []
 currBoard = []
+lastBoard = []
 centres = []
 lst = []
 grid = []
@@ -13,10 +14,11 @@ res = []
 
 
 def greedy(pid, Board):
-    global currBoard
-    global grid
+    # print(Board)
+    global currBoard, lastBoard, grid
     currBoard = Board
-    grid = [[0] * 10 for i in range(10)]
+    findCrater()
+    grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     updateTotalBoard()
     updateCentres()
     createList()
@@ -27,7 +29,11 @@ def greedy(pid, Board):
     for i in range(3):
         addPlacement()
 
+
+    lastBoard = currBoard
     return res
+
+def findCrater():
 
 
 def createList():
@@ -54,7 +60,7 @@ def addPlacement():
 
 def updateTotalBoard():
     global totalBoard
-    totalBoard = [[0] * 10 for i in range(10)]
+    totalBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     for i in range(len(currBoard)):
 
         for j in range(len(currBoard[i])):
@@ -64,7 +70,7 @@ def updateTotalBoard():
 
 def updateCentres():
     global centres
-    centres = [[0] * 10 for _ in range(10)]
+    centres = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     for i in range(len(centres)):
         for j in range(len(centres[i])):
             centres[i][j] = calcCentres(i, j)
