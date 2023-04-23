@@ -1,7 +1,11 @@
 """
 Edit this file! This is the file you will submit.
 """
+
 import random
+from linear import linear
+from smart import smart
+from predatorCounter import predatorCounter
 from megamath import megamath
 from advay import *
 from fiftyFifty import fiftyFifty
@@ -13,7 +17,7 @@ from constant import constant
 from variation import variation
 from megamathCounter import randomShit
 from megamind import megamind
-from lastPlusOne import lastPlusOne
+from lastPlusOne import lastPlusOne, lastPlusOneVaried
 from lastOne import lastOne
 from lastPlusVaried import lastPlusVaried
 from bigSmall import bigSmall
@@ -39,7 +43,18 @@ def gambler(wallet, history):
 def villain(wallet, history):
     return max(wallet - 1, 0)
 
-# Edit me!
+
+def randomShit(wallet, history):
+
+    if len(history) < 4:
+        return 1
+
+    oppSum = 100 - sum(list(map(lambda x: x[0], history)))
+
+    if oppSum * 0.6 > wallet:
+        return 0
+
+    return min(oppSum * 0.5 + 1, wallet)
 
 
 def get_strategies():
