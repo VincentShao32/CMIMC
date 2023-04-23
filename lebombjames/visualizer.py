@@ -52,6 +52,7 @@ import game2dboard
 import copy
 from pathlib import Path
 import sys
+import os
 
 exceptions = {1:"You program fail to produce a valid move!\nYour move in the current turn is random.", 0:""}
 
@@ -135,11 +136,15 @@ def on_key_press(keysym):
     for b in bombs[turn]:
         for pos in grid._bomb_coords(b[0], b[1]):
             bd[pos[0]][pos[1]] += "B"
+
+    
     scorestrcolor = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] +  "\n" + "".join([("\033[91m" if i == pid else "") + f"                Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") +("\033[0m" if i == pid else "") + "\n" for i in range(PLAYERS)])
 
-    scorestr = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] + "\n" +  "".join([("\u0332" if i == pid else "").join(f"               Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") + "\n") for i in range(PLAYERS)])
-    print(scorestrcolor)
-    bd.print(scorestr)
+    # scorestr = f"Round {turn+1}\nShowing player {player}" + ("(your program)" if player == pid else "") + "\n" + exceptions[error[turn]] + "\n" +  "".join([("\u0332" if i == pid else "").join(f"               Player {i}: {score[i]}; Avg: {round(avg[i],1)}"+("<" if i == player else "") + "\n") for i in range(PLAYERS)])
+    os.system('cls')
+    print(scorestrcolor + '\n'.join([''.join(['{:5}'.format(item) for item in row]) 
+      for row in bd]))
+    # bd.print(scorestr)
     
 try:
     import matplotlib.pyplot as plt
@@ -157,7 +162,7 @@ bd = game2dboard.Board(SIZE, SIZE)
 bd.title = "Lebomb Visualizer"
 bd.grid_color = "DarkSlateBlue"
 bd.cell_color = "LightCyan"
-bd.cell_size = 45
+bd.cell_size = 0
     
 # Visualize
 turn = 0
