@@ -3,6 +3,7 @@ from typing import List
 import random
 import math
 
+
 class AuctionHouseGrader:
     """
     AuctionHouse grading class used to locally test an auctionhouse submission.
@@ -18,7 +19,8 @@ class AuctionHouseGrader:
         :param int num_tournaments: number of tournaments to run
         """
         strategies = get_strategies()
-        self.bidders = [(f"{strategy.__name__} #{i}", strategy) for i, strategy in enumerate(strategies)]
+        self.bidders = [(f"{strategy.__name__} #{i}", strategy)
+                        for i, strategy in enumerate(strategies)]
         self.num_tournaments = num_tournaments
 
         self.debug = debug
@@ -33,6 +35,7 @@ class AuctionHouseGrader:
         bidder_losses = {bidder[0]: 0 for bidder in self.bidders}
 
         while len(curr_bidders) > 1:  # Simulates rounds
+
             next_bidders = []  # Keep track of bidders going to the next round
             losers = []  # Keep track of bidders who lose
             random.shuffle(curr_bidders)  # Pair up bidders randomly
@@ -67,11 +70,13 @@ class AuctionHouseGrader:
                     if bidder_bids[0] == -1:
                         # Automatically moves on to next round
                         next_bidders.append(matched_bidders[1])
-                        bidder_history[matched_bidders[1][0]].append((bidder_bids[1], True))
+                        bidder_history[matched_bidders[1][0]].append(
+                            (bidder_bids[1], True))
                         continue
                     if bidder_bids[1] == -1:
                         next_bidders.append(matched_bidders[0])
-                        bidder_history[matched_bidders[0][0]].append((bidder_bids[0], True))
+                        bidder_history[matched_bidders[0][0]].append(
+                            (bidder_bids[0], True))
                         continue
 
                 # At this point, no bids are invalid
@@ -85,8 +90,10 @@ class AuctionHouseGrader:
 
                 next_bidders.append(matched_bidders[winner])
                 bidder_losses[matched_bidders[loser][0]] += 1
-                bidder_history[matched_bidders[winner][0]].append((bidder_bids[winner], True))
-                bidder_history[matched_bidders[loser][0]].append((bidder_bids[loser], False))
+                bidder_history[matched_bidders[winner][0]].append(
+                    (bidder_bids[winner], True))
+                bidder_history[matched_bidders[loser][0]].append(
+                    (bidder_bids[loser], False))
                 if bidder_losses[matched_bidders[loser][0]] < self.NUM_LOSSES:
                     next_bidders.append(matched_bidders[loser])
                 else:
@@ -94,8 +101,8 @@ class AuctionHouseGrader:
 
             curr_bidders = next_bidders
             for loser in losers:
-                self.bidder_scores[loser[0]] += 1/(1 + math.sqrt(len(curr_bidders)))
-
+                self.bidder_scores[loser[0]] += 1 / \
+                    (1 + math.sqrt(len(curr_bidders)))
         if len(curr_bidders) == 1:
             self.bidder_scores[curr_bidders[0][0]] += 1
             if self.debug:
@@ -118,9 +125,11 @@ class AuctionHouseGrader:
         Prints the result of the grading.
         """
         print("Results:")
-        sorted_scores = dict(sorted(self.bidder_scores.items(), key=lambda item: item[1], reverse=True))
+        sorted_scores = dict(
+            sorted(self.bidder_scores.items(), key=lambda item: item[1], reverse=True))
         i = 1
         print("{:<5} {:<20} {:<12}".format("Rank", "Strategy", "Score"))
         for bidder in sorted_scores:
-            print("{:<5} {:<20} {:<12}".format(i, bidder, sorted_scores[bidder]))
+            print("{:<5} {:<20} {:<12}".format(
+                i, bidder, sorted_scores[bidder]))
             i += 1

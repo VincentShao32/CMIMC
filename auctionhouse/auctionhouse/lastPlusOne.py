@@ -1,12 +1,14 @@
 import math
 
+
 def lastPlusOne(wallet, history):
     if len(history) == 0:
         return 0
-    if history[-1][0] + 1 > wallet * 0.:
+    if history[-1][0] + 1 > wallet * 0.5:
         return 0
 
     return int(history[-1][0] + 1)
+
 
 def lastPlusOneVaried(wallet, history):
     if len(history) == 0:
@@ -15,7 +17,7 @@ def lastPlusOneVaried(wallet, history):
         return 0
 
     return int(history[-1][0] + 1)
-    
+
 
 def get_percentage(length):
     if length < 3:

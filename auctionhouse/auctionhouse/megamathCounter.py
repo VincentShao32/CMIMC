@@ -5,7 +5,7 @@ def randomShit(wallet, history):
 
     oppSum = 100 - sum(list(map(lambda x: x[0], history)))
 
-    if oppSum * 0.6 > wallet:
+    if oppSum * 0.5 + 1 > wallet:
         return 0
 
-    return oppSum * 0.5 + 1
+    return min(oppSum * 0.5 + 1, wallet)
