@@ -38,17 +38,17 @@ def g(x):
 def lastPlusMultiple(wallet, history):
     if len(history) == 0:
         return 0
-    if history[-1][0] + 2 > wallet * min(1, (0.3 + f(len(history)))):
+    if history[-1][0] + 1 > wallet * min(1, (0.3 + f(len(history)))):
         return 0
-    return int(history[-1][0] + 2)
+    return int(history[-1][0] + 1)
 
 
 def lastPlusMultipleExp(wallet, history):
     if len(history) == 0:
         return 0
-    if history[-1][0] + 2 > wallet * min(1, (0.3 + g(len(history)))):
+    if history[-1][0] + 1 > wallet * min(1, (0.4 + g(len(history)))):
         return 0
-    return int(history[-1][0] + 2)
+    return int(history[-1][0] + 1)
 
 
 def lastPlusOne(wallet, history):
@@ -82,6 +82,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([lastPlusOne])
+    strategies = ([lastPlusMultipleExp])
 
     return strategies
