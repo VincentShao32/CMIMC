@@ -32,7 +32,7 @@ def f(x):
 
 
 def g(x):
-    return 1.05 ** (x - 2) - 1
+    return max(0, 1.05 ** (x - 2) - 1)
 
 
 def lastPlusMultiple(wallet, history):
@@ -51,16 +51,16 @@ def lastPlusMultipleExp(wallet, history):
     return int(history[-1][0] + 2)
 
 
-def gambler(wallet, history):
-    return random.randint(0, wallet)
+# def gambler(wallet, history):
+#     return random.randint(0, wallet)
 
 
-def refinedGambler(wallet, history):
-    return int(random.uniform(0.1, 0.5) * wallet)
+# def refinedGambler(wallet, history):
+#     return int(random.uniform(0.1, 0.5) * wallet)
 
 
-def villain(wallet, history):
-    return max(wallet - 1, 0)
+# def villain(wallet, history):
+#     return max(wallet - 1, 0)
 
 
 def get_strategies():

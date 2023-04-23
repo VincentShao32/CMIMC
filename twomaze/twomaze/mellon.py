@@ -9,9 +9,9 @@ def mellon_1(x, y, walls_vertical, clock_times):
     MAZE_SIZE = 32
     VIEW_SIZE = 8
 
-    # for wall in walls_vertical:
-    #     print(wall)
-    # print()
+    for wall in walls_vertical:
+        print(wall)
+    print()
     # Greedily move right
     steps = 0
     while (x + steps < MAZE_SIZE - 1 and steps < 7):
@@ -23,8 +23,8 @@ def mellon_1(x, y, walls_vertical, clock_times):
             if walls_vertical[VIEW_SIZE][VIEW_SIZE + steps - 1] == 1:
                 break
             steps -= 1
-    print(steps)
-    print([x, y])
+    # print(steps)
+    # print([x, y])
     return (steps, 5)
 
 # The function called for maze pattern 2
