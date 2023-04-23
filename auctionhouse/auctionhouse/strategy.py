@@ -51,6 +51,15 @@ def lastPlusMultipleExp(wallet, history):
     return int(history[-1][0] + 2)
 
 
+def lastPlusOne(wallet, history):
+    if len(history) == 0:
+        return 0
+    if history[-1][0] + 1 > wallet * 0.5:
+        return 0
+
+    return int(history[-1][0] + 1)
+
+
 # def gambler(wallet, history):
 #     return random.randint(0, wallet)
 
@@ -73,6 +82,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([lastPlusMultipleExp])
+    strategies = ([lastPlusOne])
 
     return strategies

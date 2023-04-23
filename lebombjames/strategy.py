@@ -185,52 +185,52 @@ def updateTotalBoard():
     global totalBoard, players
     players = [0 for i in range(5)]
     totalBoard = [[0 for i in range(10)] for i in range(10)]
-    for i, r in enumerate(currBoard):
-        for j, c in enumerate(r):
-            for pi, p in enumerate(c):
-                totalBoard[i][j] += p
-                players[pi] += p
-    # for i in range(len(currBoard)):
-    #     for j in range(len(currBoard[i])):
-    #         for pi in range(len(currBoard[i][j])):
-    #             # changed if pi == playerId else currBoard[i][j][pi]
-    #             totalBoard[i][j] += currBoard[i][j][pi]
-    #             players[pi] += currBoard[i][j][pi]
+    # for i, r in enumerate(currBoard):
+    #     for j, c in enumerate(r):
+    #         for pi, p in enumerate(c):
+    #             totalBoard[i][j] += p
+    #             players[pi] += p
+    for i in range(len(currBoard)):
+        for j in range(len(currBoard[i])):
+            for pi in range(len(currBoard[i][j])):
+                # changed if pi == playerId else currBoard[i][j][pi]
+                totalBoard[i][j] += currBoard[i][j][pi]
+                players[pi] += currBoard[i][j][pi]
 
 
 def updateCentres():
     global centres
     centres = [[0 for i in range(10)] for i in range(10)]
-    for i, r in enumerate(centres):
-        for j, c in enumerate(r):
-            centres[i][j] = calcCentres(i, j)
-    # for i in range(len(centres)):
-    #     for j in range(len(centres[i])):
+    # for i, r in enumerate(centres):
+    #     for j, c in enumerate(r):
     #         centres[i][j] = calcCentres(i, j)
+    for i in range(len(centres)):
+        for j in range(len(centres[i])):
+            centres[i][j] = calcCentres(i, j)
 
 
 def calcCentres(x, y):
     total = 0
-    dx = [0, 1, 0, -1, 0]
-    dy = [0, 0, 1, 0, -1]
-    for xC, yC in zip(dx, dy):
-        r = x + xC
-        c = y + yC
-        if r > 9 or r < 0 or c > 9 or c < 0:
-            continue
-        total += totalBoard[x + xC][y + yC]
+    # dx = [0, 1, 0, -1, 0]
+    # dy = [0, 0, 1, 0, -1]
+    # for xC, yC in zip(dx, dy):
+    #     r = x + xC
+    #     c = y + yC
+    #     if r > 9 or r < 0 or c > 9 or c < 0:
+    #         continue
+    #     total += totalBoard[x + xC][y + yC]
 
     # print(len(totalBoard))
     # print(str(x) + " " + str(y))
-    # total += totalBoard[x][y]
-    # if x < 9:
-    #     total += totalBoard[x + 1][y]
-    # if y < 9:
-    #     total += totalBoard[x][y + 1]
-    # if x > 0:
-    #     total += totalBoard[x - 1][y]
-    # if y > 0:
-    #     total += totalBoard[x][y - 1]
+    total += totalBoard[x][y]
+    if x < 9:
+        total += totalBoard[x + 1][y]
+    if y < 9:
+        total += totalBoard[x][y + 1]
+    if x > 0:
+        total += totalBoard[x - 1][y]
+    if y > 0:
+        total += totalBoard[x][y - 1]
 
     return total
 
@@ -238,22 +238,22 @@ def calcCentres(x, y):
 def calcCrossVal(x, y):
     total = 0
     total = centres[x][y]
-    dx = [1, 0, -1, 0]
-    dy = [0, 1, 0, -1]
-    for xC, yC in zip(dx, dy):
-        r = x + xC
-        c = y + yC
-        if r > 9 or r < 0 or c > 9 or c < 0:
-            continue
-        total = max(total, centres[x + xC][y + yC])
-    # if x < 9:
-    #     total = max(total, centres[x + 1][y])
-    # if y < 9:
-    #     total = max(total, centres[x][y + 1])
-    # if x > 0:
-    #     total = max(total, centres[x - 1][y])
-    # if y > 0:
-    #     total = max(total, centres[x][y - 1])
+    # dx = [1, 0, -1, 0]
+    # dy = [0, 1, 0, -1]
+    # for xC, yC in zip(dx, dy):
+    #     r = x + xC
+    #     c = y + yC
+    #     if r > 9 or r < 0 or c > 9 or c < 0:
+    #         continue
+    #     total = max(total, centres[x + xC][y + yC])
+    if x < 9:
+        total = max(total, centres[x + 1][y])
+    if y < 9:
+        total = max(total, centres[x][y + 1])
+    if x > 0:
+        total = max(total, centres[x - 1][y])
+    if y > 0:
+        total = max(total, centres[x][y - 1])
     return total
 
 # Implement me!
