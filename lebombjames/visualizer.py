@@ -42,7 +42,7 @@ For a downloaded game, your program is assigned with a random player id between 
 The visualizer will show which player is controlled by your code. For a local game, the default player
 is set to 0. (ignore it in local games)
 """
-
+# import matplotlib
 from grid import Grid
 import game2dboard
 import copy
@@ -53,7 +53,7 @@ if len(sys.argv) > 1:
     inFile = sys.argv[1]
     print(inFile)
 else:
-    inFile = "history.game"
+    inFile = "00d86dab-00f7-47a8-84d6-7d069ad9b42e.pkl"
 
 SIZE, SETTLEMENTS, PLAYERS, BOMBS = 10, 3, 5, 2
 bd = game2dboard.Board(SIZE, SIZE)
