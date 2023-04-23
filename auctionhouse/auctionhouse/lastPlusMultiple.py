@@ -17,6 +17,6 @@ def lastPlusMultiple(wallet, history):
 def lastPlusMultipleExp(wallet, history):
     if len(history) == 0:
         return 0
-    if history[-1][0] + 2 > wallet * min(1, (0.3 + g(len(history)))):
+    if history[-1][0] + 1 > wallet * min(1, (0.4 + g(len(history)))):
         return 0
-    return int(history[-1][0] + 2)
+    return int(history[-1][0] + 1)

@@ -1,5 +1,5 @@
 import math
-from statistics import mode, median
+from statistics import mode, median, linear_regression
 
 
 def mCalc(n, points):
@@ -50,26 +50,27 @@ def constantValue(history):
 
 
 def megamind(wallet, history):
-    oppSum = (100 - sum(i[0] for i in history))
     if len(history) == 0:
-        return 2
-    constant, val = constantValue(history)
-    if constant and val + 1 < wallet * 0.6:
-        return int(val + 1)
-    oppBets = [history[0][0] / 100]
-    total = 100 - history[0][0]
-    for i in history[1:]:
-        if i[0] < 2:
+        return 0
+    # constant, val = constantValue(history)
+    # if constant and val + 1 < wallet * 0.6:
+    #     return int(val + 1)
+    oppSum = (100 - sum(i[0] for i in history))
+
+    oppBets = []
+    for i in history:
+        if i[0] < 3:
             continue
-        oppBets.append(roundNum(i[0] / total))
-        total -= i[0]
+        oppBets.append(i[0])
     if len(oppBets) >= 2:
-        oppm, oppb = linRegression(oppBets)
-
-        oppNext = g(oppm, oppb, len(oppBets))
+        slope, intercept = linear_regression(
+            list(i for i in range(len(oppBets))), oppBets)
+        # print(slope)
+        oppNext = min(oppSum, g(slope, intercept, len(oppBets) + 1) + 7)
     else:
-        oppNext = 0.2
+        oppNext = history[-1][0] + 2
 
+    # print(oppNext)
     # selfBets = [history[0][0] / 100]
     # for i, j in enumerate(history[1:]):
     #     if j[0] < 1:
@@ -89,7 +90,7 @@ def megamind(wallet, history):
     # use = oppNext if RMSE(oppm, oppb, oppBets) < RMSE(
     #     selfm, selfb, selfBets) else selfNext
 
-    if oppSum * oppNext > wallet * 0.6:
+    if oppNext > wallet * 0.6:
         return 0
 
-    return int(wallet * oppNext)
+    return int(oppNext)

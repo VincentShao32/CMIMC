@@ -3,83 +3,21 @@ Edit this file! This is the file you will submit.
 """
 
 import random
-from linear import linear
-from smart import smart
-from predatorCounter import predatorCounter
-from megamath import megamath
-from advay import *
-from fiftyFifty import fiftyFifty
-from lose import loseOpp
-from loseUs import loseUs
-from smart import smart
-from linear import linear
-from constant import constant
-from variation import variation
-from megamathCounter import randomShit
-from megamind import megamind
-from lastPlusOne import lastPlusOne, lastPlusOneVaried
-from lastOne import lastOne
-from lastPlusMultiple import *
-from bigSmall import bigSmall
-from average import average, med
 
 # Implement me!
 # 2 example strategies to use in your tournament.
 
 
 def f(x):
-    return max(0, 0.08 * (x - 3))
-
-
-def g(x):
     return max(0, 1.05 ** (x - 2) - 1)
 
 
-def lastPlusMultiple(wallet, history):
+def lastPlusOneExp(wallet, history):
     if len(history) == 0:
         return 0
-    if history[-1][0] + 1 > wallet * min(1, (0.3 + f(len(history)))):
+    if history[-1][0] + 1 > wallet * min(1, (0.4 + f(len(history)))):
         return 0
     return int(history[-1][0] + 1)
-
-
-def lastPlusMultipleExp(wallet, history):
-    if len(history) == 0:
-        return 0
-    if history[-1][0] + 1 > wallet * min(1, (0.4 + g(len(history)))):
-        return 0
-    return int(history[-1][0] + 1)
-
-def lastSuccessPlusOne(wallet, history):
-
-    if len(history) == 0:
-        return 0
-
-    lastSuccess = -2
-    for val, success in reversed(history):
-        if success:
-            lastSuccesss = val
-    
-    if lastSuccess == -2:
-        lastSuccess = history[-1][0]
-
-    if lastSuccess + 3 > wallet * min(1, (0.3 + g(len(history)))):
-        return 0
-    
-    return lastSuccess + 3
-
-
-
-def gambler(wallet, history):
-    return random.randint(0, wallet)
-
-
-def refinedGambler(wallet, history):
-    return int(random.uniform(0.1, 0.5) * wallet)
-
-
-def villain(wallet, history):
-    return max(wallet - 1, 0)
 
 
 def get_strategies():
@@ -92,6 +30,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([lastSuccessPlusOne, loseOpp, lastPlusMultiple, lastPlusMultipleExp, lastPlusOne, lastPlusOneVaried])
+    strategies = ([lastPlusOneExp])
 
     return strategies

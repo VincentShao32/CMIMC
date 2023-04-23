@@ -1,4 +1,5 @@
 import random
 
+
 def constant(wallet, history):
-    return min(wallet, random.randint(20, 20))
+    return min(wallet, random.randint(12, 12))

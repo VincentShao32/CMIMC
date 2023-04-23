@@ -1,5 +1,5 @@
 def f(x):
-    return 2 * x + 2
+    return 3 * x + 4
 
 
 def linear(wallet, history):
