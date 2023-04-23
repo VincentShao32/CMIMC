@@ -21,6 +21,7 @@ def carnegie_1(x, y, walls_horizontal, clock_times):
         if walls_horizontal[VIEW_SIZE][VIEW_SIZE + steps + 1] == 1 or [x, y + steps + 1] in visited:
             break
         steps = steps + 1
+
     if steps == 0:
         while (y + steps >= 0 and steps > -8):
             if walls_horizontal[VIEW_SIZE][VIEW_SIZE + steps] == 1 or [x, y + steps - 1] in visited:
