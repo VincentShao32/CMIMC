@@ -2,7 +2,7 @@
 Edit this file! This is the file you will submit.
 """
 import random
-from pastBomb import seperation
+import math
 
 totalBoard = []
 currBoard = []
@@ -11,15 +11,23 @@ centres = []
 lst = []
 grid = []
 res = []
+playerId = 0
 
+round = 0
+players = [0, 0, 0, 0, 0]
+sortedPlayers = []
+
+#ChaoticCrusaders is a team that uses a spaced out grid pattern. We will implement a sabotage functionality if we detect them
+# states = {"twoMinPlayers": False, "hasCrusader"}
 
 def greedy(pid, Board):
-    # print(Board)
-    global currBoard, lastBoard, grid
+    global currBoard, lastBoard, grid, round, playerId
+    playerId = pid
     currBoard = Board
-    findCrater()
+    # findCrater()
     grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     updateTotalBoard()
+    updatePlayerStandings()
     updateCentres()
     createList()
 
@@ -27,15 +35,99 @@ def greedy(pid, Board):
     res = []
 
     for i in range(3):
-        addPlacement()
-
+        # if round > 150 and i == 0 and getPlayerDiff() < 0.1:
+        #     sabotage()
+        # else:
+        addSettlement()
 
     lastBoard = currBoard
+
+    round += 1
+
+    if len(res) == 2:
+        print("TWO")
+
     return res
 
-def findCrater():
-    pass
+# def findCrater():
 
+def updatePlayerStandings():
+    global players, sortedPlayers
+    sortedPlayers = []
+    for i in range(len(players)):
+        sortedPlayers.append((players[i], i))
+
+    sortedPlayers = sorted(sortedPlayers, reverse=True)
+
+def getPlayerDiff():
+    global sortedPlayers, playerId
+    ownScore = ()
+    maxVal = 0
+    for i in sortedPlayers:
+        if i[1] == playerId:
+            ownScore = i
+            break
+        else:
+            maxVal = max(maxVal, i[0])
+
+    # print(playerId)
+    # print(sortedPlayers)
+    return 1.0 - maxVal/ownScore[0]
+
+
+def sabotage():
+    # print("begin")
+    global sortedPlayers
+
+    toSabotage = ()
+    for i in sortedPlayers:
+        if i[1] != playerId:
+            toSabotage = i
+            break
+
+    oppBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
+
+    for i in range(len(currBoard)):
+        for j in range(len(currBoard[i])):
+            oppBoard[i][j] = currBoard[i][j][toSabotage[1]] - currBoard[i][j][playerId]
+
+    maxValX = -1
+    maxValY = -1
+    maxVal = -1
+
+    for i in range(len(oppBoard)):
+        for j in range(len(oppBoard)):
+            total = oppBoard[i][j]
+            if i < 9:
+                total += oppBoard[i + 1][j]
+            if j < 9:
+                total += oppBoard[i][j + 1]
+            if i > 0:
+                total += oppBoard[i - 1][j]
+            if j > 0:
+                total += oppBoard[i][j - 1]
+            if total > maxVal:
+                maxVal = total
+                maxValX = i
+                maxValY = j
+
+    topTwo = []
+
+    for i in reversed(lst):
+        if not (i[1] == maxValX and i[2] == maxValY):
+            topTwo.append(i)
+        else: #could fix structure of code so that the maxVal found earlier can't be one of these two. This doesn't sabotage when it sometimes should
+            addSettlement()
+            return
+
+    if (topTwo[1][0] - centres[maxValX][maxValY] == 0) and maxVal > 2:
+        # print("sabotaging")
+        res.append((maxValX, maxValY))
+        totalBoard[maxValX][maxValY] += 1
+        updateCentres()
+        createList()
+    else:
+        addSettlement()
 
 def createList():
     global lst
@@ -49,24 +141,46 @@ def createList():
     lst = sorted(lst)
 
 
-def addPlacement():
+def alreadyPlaced(x, y):
+    global res
+    if len(res) == 0:
+        return False
+
+    for i in res:
+        if math.sqrt(math.pow(x - i[0], 2) + math.pow(y - i[1], 2)) <= 2:
+            return True
+
+    return False
+
+def addSettlement():
     global currBoard
-    tup = lst[1]
+    pool = []
+    for i in range(int(len(lst))):
+        if alreadyPlaced(lst[i][1], lst[i][2]):
+            continue
+        else:
+            pool.append(lst[i])
+
+
+    # tup = pool[random.randint(0, len(pool) - 1)]
+
+    tup = pool[0]
     res.append((tup[1], tup[2]))
-    totalBoard[tup[1]][tup[2]] += 1
+    totalBoard[tup[1]][tup[2]] += 1 #changed
 
     updateCentres()
     createList()
 
 
 def updateTotalBoard():
-    global totalBoard
+    global totalBoard, players
+    players = [0, 0, 0, 0, 0]
     totalBoard = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     for i in range(len(currBoard)):
-
         for j in range(len(currBoard[i])):
-            for pi in currBoard[i][j]:
-                totalBoard[i][j] += pi
+            for pi in range(len(currBoard[i][j])):
+                totalBoard[i][j] += currBoard[i][j][pi]  #changed if pi == playerId else currBoard[i][j][pi]
+                players[pi] += currBoard[i][j][pi]
 
 
 def updateCentres():
@@ -135,7 +249,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = [greedy, seperation,
-                  random_strategy, random_strategy, strategy]
+    strategies = [greedy, random_strategy, random_strategy, random_strategy, strategy]
 
     return strategies
