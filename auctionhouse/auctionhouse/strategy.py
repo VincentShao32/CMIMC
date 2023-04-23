@@ -1,90 +1,66 @@
 """
 Edit this file! This is the file you will submit.
 """
+
 import random
-from megamath import megamath
-from advay import *
-from fiftyFifty import fiftyFifty
-from lose import loseOpp
-from loseUs import loseUs
-from smart import smart
-from linear import linear
-from megamathCounter import randomShit
+# from linear import linear
+# from smart import smart
+# from predatorCounter import predatorCounter
+# from megamath import megamath
+# from advay import *
+# from fiftyFifty import fiftyFifty
+# from lose import loseOpp
+# from loseUs import loseUs
+# from smart import smart
+# from linear import linear
+# from constant import constant
+# from variation import variation
+# from megamathCounter import randomShit
+# from megamind import megamind
+# from lastPlusOne import lastPlusOne, lastPlusOneVaried
+# from lastOne import lastOne
+# from lastPlusMultiple import *
+# from bigSmall import bigSmall
+# from average import average, med
 
 # Implement me!
 # 2 example strategies to use in your tournament.
 
-from statistics import mean, stdev
-
 
 def f(x):
-    return -12 * x + 100
-    # return 100 * 0.65 ** x
+    return max(0, 0.08 * (x - 3))
 
 
-def standardDev(points):
-    if len(points) == 1:
-        return points[0]
-    return stdev(points)
+def g(x):
+    return max(0, 1.05 ** (x - 2) - 1)
 
 
-def roundNum(num):
-    return round(num * 100) / 100
-
-
-def megamath(wallet, history):
-
+def lastPlusMultiple(wallet, history):
     if len(history) == 0:
-        return 1
-
-    total = 100
-    points1 = [history[0][0] / total]
-    total -= history[0][0]
-    for i in history[1:]:
-        if i[0] < 1:
-            continue
-        points1.append(roundNum(i[0] / total))
-        total -= i[0]
-    oppFactor = mean(j for j in points1)
-    oppSum = (100 - sum(i[0] for i in history))
-    points2 = [history[0][0] / 100]
-    for i, j in enumerate(history[1:]):
-        if j[0] < 1:
-            continue
-        points2.append(roundNum(j[0] / f(i - 1)))
-    selfFactor = mean(j for j in points2)
-    useFactor = selfFactor if standardDev(
-        points2) < standardDev(points1) else oppFactor
-
-    #useFactor = oppFactor
-    if useFactor == selfFactor:
-        return int(wallet * (useFactor + 0.125))
-
-    if (oppSum * (useFactor + 0.125) > wallet * 0.7):
         return 0
-    return int(oppSum * (useFactor + 0.125))
-
-# def ElDesafisimo(wallet, history):
-#     if len(history) == 0:
-#         return 0
-
-#     if history[-1] == 0 and len(history) < 5:
-#         return 1
-
-#     sum_of_wallet = sum(list(map(lambda x: x[0], history)))
-#     valid_amount = sum_of_wallet * logistic_function(len(history))
-
-#     return 1 if valid_amount > wallet else valid_amount + 1
+    if history[-1][0] + 2 > wallet * min(1, (0.3 + f(len(history)))):
+        return 0
+    return int(history[-1][0] + 2)
 
 
-def gambler(wallet, history):
-    return random.randint(0, wallet)
+def lastPlusMultipleExp(wallet, history):
+    if len(history) == 0:
+        return 0
+    if history[-1][0] + 2 > wallet * min(1, (0.3 + g(len(history)))):
+        return 0
+    return int(history[-1][0] + 2)
 
 
-def villain(wallet, history):
-    return max(wallet - 1, 0)
+# def gambler(wallet, history):
+#     return random.randint(0, wallet)
 
-# Edit me!
+
+# def refinedGambler(wallet, history):
+#     return int(random.uniform(0.1, 0.5) * wallet)
+
+
+# def villain(wallet, history):
+#     return max(wallet - 1, 0)
 
 
 def get_strategies():
@@ -97,7 +73,6 @@ def get_strategies():
 
     In the official grader, only the first element of the list will be used as your strategy. 
     """
-    strategies = ([megamath] * 2)
-    # strategies = ([gambler] + [megamath])
-    # strategies = ([megamath, fiftyFifty])
+    strategies = ([lastPlusMultipleExp])
+
     return strategies

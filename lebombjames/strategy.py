@@ -11,9 +11,8 @@ currBoard = []
 lastBoard = []
 centres = []
 lst = []
-grid = []
 res = []
-playerId = 0;
+playerId = 0
 
 round = 0
 players = [0, 0, 0, 0, 0]
@@ -23,12 +22,10 @@ sortedPlayers = []
 # states = {"twoMinPlayers": False, "hasCrusader"}
 
 def greedy(pid, Board):
-    # print(Board)
-    global currBoard, lastBoard, grid, round, playerId
+    global currBoard, lastBoard, round, playerId
     playerId = pid
     currBoard = Board
     # findCrater()
-    grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
     updateTotalBoard()
     updatePlayerStandings()
     updateCentres()
@@ -46,17 +43,25 @@ def greedy(pid, Board):
     lastBoard = currBoard
 
     round += 1
+
+    # if len(res) == 2:
+    #     print("TWO")
+
     return res
 
 # def findCrater():
 
+
 def updatePlayerStandings():
     global players, sortedPlayers
-    sortedPlayers = []
-    for i in range(len(players)):
-        sortedPlayers.append((players[i], i))
+    sortedPlayers = sorted(((player, i)
+                           for i, player in enumerate(players)), reverse=True)
+    # sortedPlayers = []
+    # for i in range(len(players)):
+    #     sortedPlayers.append((players[i], i))
 
-    sortedPlayers = sorted(sortedPlayers, reverse=True)
+    # sortedPlayers = sorted(sortedPlayers, reverse=True)
+
 
 def getPlayerDiff():
     global sortedPlayers, playerId
@@ -132,10 +137,14 @@ def createList():
     global lst
     lst = []
 
-    for i in range(len(grid)):
-        for j in range(len(grid[i])):
-            grid[i][j] = calcCrossVal(i, j)
-            lst.append((grid[i][j], i, j))
+    for i in range(10):
+        for j in range(10):
+            lst.append((calcCrossVal(i, j), i, j))
+
+    # for i in range(len(grid)):
+    #     for j in range(len(grid[i])):
+    #         grid[i][j] = calcCrossVal(i, j)
+    #         lst.append((grid[i][j], i, j))
 
     lst = sorted(lst)
 
@@ -151,15 +160,15 @@ def alreadyPlaced(x, y):
 
     return False
 
+
 def addSettlement():
     global currBoard
     pool = []
-    for i in range(int(len(lst))):
-        if alreadyPlaced(lst[i][1], lst[i][2]):
+    for i in lst:
+        if alreadyPlaced(i[1], i[2]):
             continue
         else:
-            pool.append(lst[i])
-
+            pool.append(i)
 
     # tup = pool[random.randint(0, len(pool) - 1)]
 
@@ -184,25 +193,37 @@ def updateTotalBoard():
 
 def updateCentres():
     global centres
-    centres = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for i in range(10)]
-    for i in range(len(centres)):
-        for j in range(len(centres[i])):
+    centres = [[0 for i in range(10)] for i in range(10)]
+    for i, r in enumerate(centres):
+        for j, c in enumerate(r):
             centres[i][j] = calcCentres(i, j)
+    # for i in range(len(centres)):
+    #     for j in range(len(centres[i])):
+    #         centres[i][j] = calcCentres(i, j)
 
 
 def calcCentres(x, y):
     total = 0
+    dx = [0, 1, 0, -1, 0]
+    dy = [0, 0, 1, 0, -1]
+    for xC, yC in zip(dx, dy):
+        r = x + xC
+        c = y + yC
+        if r > 9 or r < 0 or c > 9 or c < 0:
+            continue
+        total += totalBoard[x + xC][y + yC]
+
     # print(len(totalBoard))
     # print(str(x) + " " + str(y))
-    total += totalBoard[x][y]
-    if x < 9:
-        total += totalBoard[x + 1][y]
-    if y < 9:
-        total += totalBoard[x][y + 1]
-    if x > 0:
-        total += totalBoard[x - 1][y]
-    if y > 0:
-        total += totalBoard[x][y - 1]
+    # total += totalBoard[x][y]
+    # if x < 9:
+    #     total += totalBoard[x + 1][y]
+    # if y < 9:
+    #     total += totalBoard[x][y + 1]
+    # if x > 0:
+    #     total += totalBoard[x - 1][y]
+    # if y > 0:
+    #     total += totalBoard[x][y - 1]
 
     return total
 
@@ -210,14 +231,22 @@ def calcCentres(x, y):
 def calcCrossVal(x, y):
     total = 0
     total = centres[x][y]
-    if x < 9:
-        total = max(total, centres[x + 1][y])
-    if y < 9:
-        total = max(total, centres[x][y + 1])
-    if x > 0:
-        total = max(total, centres[x - 1][y])
-    if y > 0:
-        total = max(total, centres[x][y - 1])
+    dx = [1, 0, -1, 0]
+    dy = [0, 1, 0, -1]
+    for xC, yC in zip(dx, dy):
+        r = x + xC
+        c = y + yC
+        if r > 9 or r < 0 or c > 9 or c < 0:
+            continue
+        total = max(total, centres[x + xC][y + yC])
+    # if x < 9:
+    #     total = max(total, centres[x + 1][y])
+    # if y < 9:
+    #     total = max(total, centres[x][y + 1])
+    # if x > 0:
+    #     total = max(total, centres[x - 1][y])
+    # if y > 0:
+    #     total = max(total, centres[x][y - 1])
     return total
 
 # Implement me!
