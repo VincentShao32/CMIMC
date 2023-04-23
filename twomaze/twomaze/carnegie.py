@@ -9,9 +9,9 @@ def carnegie_1(x, y, walls_horizontal, clock_times):
     MAZE_SIZE = 32
     VIEW_SIZE = 8
 
-    for wall in walls_horizontal:
-        print(wall)
-    print()
+    # for wall in walls_horizontal:
+    #     print(wall)
+    # print()
     # Greedily move up
     steps = 0
     while (y + steps < MAZE_SIZE - 1 and steps < 7):
