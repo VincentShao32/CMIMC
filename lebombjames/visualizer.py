@@ -46,7 +46,7 @@ Recall that if your program exceeds the query time, total time, or memory limit,
 output, your settlements will be placed down randomly. Whenever that happens, the visualizer will display
 a text message to indicate that your program did not operate normally in a given turn.
 """
-
+# import matplotlib
 from grid import Grid
 import game2dboard
 import copy
@@ -60,7 +60,7 @@ if len(sys.argv) > 1:
     inFile = sys.argv[1]
     print(inFile)
 else:
-    inFile = "history.game"
+    inFile = "00d86dab-00f7-47a8-84d6-7d069ad9b42e.pkl"
 
 
 
